@@ -1,4 +1,4 @@
-function [uOut,vOut] = solveVelocityBoundary(uIn,vIn, inletVelocity)
+function [uOut,vOut] = solveVelocityBoundary(uIn, vIn, inletVelocity)
 
 uOut = uIn;
 vOut = vIn;
