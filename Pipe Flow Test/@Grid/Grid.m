@@ -19,8 +19,6 @@ classdef Grid < handle
         u, v; % x and y velocity components
         uF, vF; % x and y intermediate velocity grids
         P; % Pressure per density (p/rho)
-        Au, Av; % x and y advection terms
-        Bu, Bv; % x and y diffusion terms
     end
     
     
@@ -45,15 +43,11 @@ classdef Grid < handle
             obj.t = 0:obj.dt:obj.duration;
             
             % Create grids for each variable
-            obj.u = zeros(length(obj.x)+1, length(obj.y), length(obj.t));
-            obj.v = zeros(length(obj.x), length(obj.y)+1, length(obj.t));
+            obj.u = zeros(length(obj.x), length(obj.y)+1, length(obj.t));
+            obj.v = zeros(length(obj.x)+1, length(obj.y), length(obj.t));
             obj.P = zeros(length(obj.x)+1, length(obj.y)+1, length(obj.t));
-            obj.uF = zeros(length(obj.x)+1, length(obj.y));
-            obj.vF = zeros(length(obj.x), length(obj.y)+1);
-            obj.Au = zeros(length(obj.x)+1, length(obj.y));
-            obj.Av = zeros(length(obj.x), length(obj.y)+1);
-            obj.Bu = zeros(length(obj.x)+1, length(obj.y));
-            obj.Bv = zeros(length(obj.x), length(obj.y)+1);
+            obj.uF = zeros(length(obj.x), length(obj.y)+1);
+            obj.vF = zeros(length(obj.x)+1, length(obj.y));
             
             % Set grid values to NaN
             obj.u(:,:,:) = NaN;
@@ -61,22 +55,17 @@ classdef Grid < handle
             obj.P(:,:,:) = NaN;
             obj.uF(:,:) = NaN;
             obj.vF(:,:) = NaN;
-            obj.Au(:,:) = NaN;
-            obj.Av(:,:) = NaN;
-            obj.Bu(:,:) = NaN;
-            obj.Bv(:,:) = NaN;
         end
         
         
-        % Set initial conditions
+        % Set initial conditions for velocity and pressure
         setInitialConditions(obj, u0, v0, P0)
-%         function setInitialConditions(obj, u0, v0, P0)
-% 
-%             obj.u(:,:,1) = u0;
-%             obj.v(:,:,1) = v0;
-%             obj.P(:,:,1) = P0;
-% 
-%         end
+        
+        % Find intermediate velocity ignoring pressure
+        solveIntermediateVelocity(obj, n, mu, rho)
+        
+        % Apply boundary conditions for intermediate velocity
+        solveVelocityBoundary(uIn,vIn, inletVelocity)
         
     end
     
