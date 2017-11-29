@@ -34,8 +34,4 @@ v0 = zeros(length(x), length(y)+1);
 v0(inletStartIndex:inletEndIndex,1) = 0.1;
 P0 = zeros(length(x)+1, length(y)+1);
 
-pipeFlowGrid.u(:,:,1)
-
 pipeFlowGrid.setInitialConditions(u0, v0, P0);
-
-pipeFlowGrid.u(:,:,1)
