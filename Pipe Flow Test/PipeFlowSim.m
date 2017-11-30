@@ -62,7 +62,7 @@ end
 
 pipeFlowGrid.u(:,:,end)
 pipeFlowGrid.v(:,:,end)
-[uUnified, vUnified] = pipeFlowGrid.unifyVelocity(6)
+[uUnified, vUnified] = pipeFlowGrid.unifyVelocity(n)
 
 figure(1);
 contourf(uUnified');
