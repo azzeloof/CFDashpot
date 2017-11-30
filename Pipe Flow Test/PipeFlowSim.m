@@ -14,7 +14,7 @@ yDim = 0.1;
 dx = 0.002;
 dy = 0.002;
 
-duration = 0.001;
+duration = 0.01;
 dt = 0.0002;
 
 inletVelocity = 0.03;
@@ -60,20 +60,28 @@ end
 
 %% Plot results
 
-pipeFlowGrid.u(:,:,end)
-pipeFlowGrid.v(:,:,end)
-[uUnified, vUnified] = pipeFlowGrid.unifyVelocity(n)
+pipeFlowGrid.u(:,:,end);
+pipeFlowGrid.v(:,:,end);
+[uUnified, vUnified] = pipeFlowGrid.unifyVelocity(n);
+uTest = zeros(size(uUnified));
 
 figure(1);
 contourf(uUnified');
+shading interp;
+view(2);
+axis image;
 title('u');
 
 figure(2);
 contourf(vUnified');
+shading interp;
+view(2);
+axis image;
 title('v')
 
 figure(3);
-streamslice(uUnified',vUnified');
+quiver(uUnified',vUnified');
+axis image;
 
 
 
