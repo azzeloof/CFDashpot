@@ -43,10 +43,11 @@ for n = 2:length(pipeFlowGrid.t)
 %     pipeFlowGrid.uF
 %     pipeFlowGrid.vF
     
+    pipeFlowGrid.solvePressureBoundary(n-1);
     pipeFlowGrid.solvePressure(n);
 %     pipeFlowGrid.P
     
-    pipeFlowGrid.solvePressureBoundary(n);
+    %pipeFlowGrid.solvePressureBoundary(n);
 %     pipeFlowGrid.P
     
     pipeFlowGrid.solveFinalVelocity(n);

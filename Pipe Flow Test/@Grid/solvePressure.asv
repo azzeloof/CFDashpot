@@ -4,12 +4,11 @@ cutoff = 1e-6;
 maxDiff = 1;
 B = obj.dx/obj.dy;
 P0 = obj.P(:,:,n-1);
-%P1 = zeros(size(obj.P,1),size(obj.P,2));
-% Changed this because when, in the loop, P0 is set to P1, BCs are removed
-P1 = P0;
-P1(2:end-1,2:end-1) = 0;
+P1 = zeros(size(obj.P,1),size(obj.P,2));
 
 % This was previously using u(i,j) and v(i,j). Changed to use uF and vF.
+
+% Set one node to zero
 while maxDiff > cutoff
     for i = 2:size(P0,1) - 1
         for j = 2:size(P0,2) - 1
@@ -19,12 +18,10 @@ while maxDiff > cutoff
             P1(i,j) = (1/(2*(1+B^2))) * a - (1/(2*(1+B^2))) * b;
         end
     end
-    
     maxDiff = max(max(abs(P1 - P0)));
     P0 = P1;
 end
 
-%obj.P(2:end-1,2:end-1,n) = P1(2:end-1,2:end-1);
 obj.P(:,:,n) = P1;
 
 end
