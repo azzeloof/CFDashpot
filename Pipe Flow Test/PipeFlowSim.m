@@ -14,7 +14,7 @@ yDim = 0.1;
 dx = 0.002;
 dy = 0.002;
 
-duration = 0.01;
+duration = 0.001;
 dt = 0.0002;
 
 inletVelocity = 0.03;
@@ -33,16 +33,47 @@ pipeFlowGrid.setInitialConditions(u0, v0, P0);
 
 %% Solve at each time step
 
+% n = 2;
 for n = 2:length(pipeFlowGrid.t)
     pipeFlowGrid.solveIntermediateVelocity(n, mu, rho);
+%     pipeFlowGrid.uF
+%     pipeFlowGrid.vF
+    
     [pipeFlowGrid.uF, pipeFlowGrid.vF] = solveVelocityBoundary(pipeFlowGrid.uF, pipeFlowGrid.vF, inletVelocity);
+%     pipeFlowGrid.uF
+%     pipeFlowGrid.vF
+    
     pipeFlowGrid.solvePressure(n);
+%     pipeFlowGrid.P
+    
     pipeFlowGrid.solvePressureBoundary(n);
+%     pipeFlowGrid.P
+    
     pipeFlowGrid.solveFinalVelocity(n);
-    [pipeFlowGrid.u, pipeFlowGrid.v] = solveVelocityBoundary(pipeFlowGrid.u, pipeFlowGrid.v, inletVelocity);
+%     pipeFlowGrid.u
+%     pipeFlowGrid.v
+    
+    [pipeFlowGrid.u(:,:,n), pipeFlowGrid.v(:,:,n)] = solveVelocityBoundary(pipeFlowGrid.u(:,:,n), pipeFlowGrid.v(:,:,n), inletVelocity);
+%     pipeFlowGrid.u
+%     pipeFlowGrid.v
 end
 
+%% Plot results
 
+pipeFlowGrid.u(:,:,end)
+pipeFlowGrid.v(:,:,end)
+[uUnified, vUnified] = pipeFlowGrid.unifyVelocity(6)
+
+figure(1);
+contourf(uUnified');
+title('u');
+
+figure(2);
+contourf(vUnified');
+title('v')
+
+figure(3);
+streamslice(uUnified',vUnified');
 
 
 

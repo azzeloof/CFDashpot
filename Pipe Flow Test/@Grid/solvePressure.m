@@ -6,12 +6,14 @@ B = obj.dx/obj.dy;
 P0 = obj.P(:,:,n-1);
 P1 = zeros(size(obj.P,1),size(obj.P,2));
 
+% Set one node to zero
+
 while maxDiff > cutoff
     for i = 2:size(P0,1) - 1
         for j = 2:size(P0,2) - 1
             a = P0(i-1,j) + P0(i+1,j) + B^2 * (P0(i,j-1) + P0(i,j+1));
-            b = (1/obj.dt) * ((obj.u(i+1,j) - obj.u(i-1,j))/(2*obj.dx) + ...
-                (obj.v(i,j+1) - obj.v(i,j-1))/(2*obj.dy)); % might be wrong
+            b = (1/obj.dt) * ((obj.u(i,j) - obj.u(i-1,j))/obj.dx + ...
+                (obj.v(i,j) - obj.v(i,j-1))/obj.dy); % might be wrong
             P1(i,j) = (1/(2*(1+B^2))) * a - (1/(2*(1+B^2))) * b;
         end
     end

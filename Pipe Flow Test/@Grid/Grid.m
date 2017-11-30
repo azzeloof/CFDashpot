@@ -59,13 +59,13 @@ classdef Grid < handle
         
         
         % Set initial conditions for velocity and pressure
-        setInitialConditions(obj, u0, v0, P0)
+        setInitialConditions(obj, u0, v0, P0);
         
         % Find intermediate velocity ignoring pressure
-        solveIntermediateVelocity(obj, n, mu, rho)
+        solveIntermediateVelocity(obj, n, mu, rho);
         
         % Find pressure at n+1 time step
-        solvePressure(obj, n)
+        solvePressure(obj, n);
         
         % Apply boundary conditions for pressure
         solvePressureBoundary(obj, n);
@@ -73,12 +73,7 @@ classdef Grid < handle
         % Find final velocity using pressure
         solveFinalPressure(obj, n);
         
-    end
-    
-    methods (Static)
-        
-        % Apply boundary conditions for intermediate velocity
-        [uOut, vOut] = solveVelocityBoundary(uIn, vIn, inletVelocity)
+        [uUnified, vUnified] = unifyVelocity(obj,n);
         
     end
     
