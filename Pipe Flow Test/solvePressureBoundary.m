@@ -7,7 +7,6 @@ POut(2:end-1,1) = POut(2:end-1,2);
 
 % Outlet
 POut(2:end-1,end) = POut(2:end-1,end-1);
-% obj.P(2:end-1,end,n) = 0;
 
 % Left wall
 POut(1,:) = POut(2,:);

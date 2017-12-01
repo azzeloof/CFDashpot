@@ -1,6 +1,6 @@
 function solvePressure(obj, n)
 
-cutoff = 0.01;
+cutoff = 0.001;
 maxDiff = 1;
 B = obj.dx/obj.dy;
 P0 = obj.P(:,:,n-1);
@@ -12,7 +12,7 @@ while maxDiff > cutoff
     
     for i = 2:size(P0,1) - 1
         for j = 2:size(P0,2) - 1
-%             if i == size(P0,1) - 2 && j == size(P0,2) - 2
+%             if i == 2 && j == 2
 %                 P1(i,j) = 0;
 %             else
                 a = P0(i-1,j) + P0(i+1,j) + B^2 * (P0(i,j-1) + P0(i,j+1));
