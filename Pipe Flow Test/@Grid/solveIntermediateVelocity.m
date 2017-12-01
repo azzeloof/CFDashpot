@@ -10,7 +10,7 @@ for i = 2:size(obj.u,1) - 1
                              ((obj.u(i,j,n-1) + obj.u(i,j+1,n-1)) / 2) - ...
                              ((obj.v(i,j-1,n-1) + obj.v(i+1,j-1,n-1)) / 2) * ...
                              ((obj.u(i,j-1,n-1) + obj.u(i,j,n-1)) / 2));
-        Au = duu_dx + dvu_dy;
+        Au = -(duu_dx + dvu_dy);
         
         % Diffusion in x direction
         d2u_dx2 = (obj.u(i+1,j,n-1) - 2*obj.u(i,j,n-1) + obj.u(i-1,j,n-1)) / obj.dx^2;
@@ -32,7 +32,7 @@ for i = 2:size(obj.v,1) - 1
                              ((obj.v(i,j,n-1) + obj.v(i-1,j,n-1)) / 2));
         dvv_dy = 1/obj.dy * (((obj.v(i,j,n-1) + obj.u(i,j+1,n-1)) / 2)^2 - ...
                              ((obj.v(i,j,n-1) + obj.u(i,j-1,n-1)) / 2)^2);
-        Av = duv_dx + dvv_dy;
+        Av = -(duv_dx + dvv_dy);
                 
         % Diffusion in y direction
         d2v_dx2 = (obj.v(i+1,j,n-1) - 2*obj.v(i,j,n-1) + obj.v(i-1,j,n-1)) / obj.dx^2;
