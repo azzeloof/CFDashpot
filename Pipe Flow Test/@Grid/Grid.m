@@ -72,6 +72,10 @@ classdef Grid < handle
         
         [uUnified, vUnified] = unifyVelocity(obj,n);
         
+        A = solveAdvection(obj, i, j, n, direction);
+        
+        B = solveDiffusion(obj, i, j, n, mu, rho, direction);
+        
     end
     
 end

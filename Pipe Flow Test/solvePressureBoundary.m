@@ -6,7 +6,7 @@ POut = PIn;
 POut(2:end-1,1) = POut(2:end-1,2);
 
 % Outlet
-POut(2:end-1,end) = 0;%POut(2:end-1,end-1);
+POut(2:end-1,end) = POut(2:end-1,end-1);
 
 % Left wall
 POut(1,:) = POut(2,:);

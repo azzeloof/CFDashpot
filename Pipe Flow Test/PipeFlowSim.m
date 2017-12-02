@@ -17,7 +17,7 @@ dy = 0.002;
 duration = 0.01;
 dt = 0.0002;
 
-inletVelocity = .5;
+inletVelocity = .001;
 
 pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt);
 
