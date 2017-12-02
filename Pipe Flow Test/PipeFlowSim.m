@@ -14,10 +14,10 @@ yDim = 0.1;
 dx = 0.002;
 dy = 0.002;
 
-duration = 0.1;
+duration = 0.01;
 dt = 0.0002;
 
-inletVelocity = 0.001;
+inletVelocity = .5;
 
 pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt);
 
@@ -53,7 +53,7 @@ axis image;
 title('u');
 
 figure(2);
-contourf(vUnified');
+surf(vUnified');
 shading interp;
 view(2);
 axis image;
@@ -66,7 +66,7 @@ axis image;
 figure(4);
 contourf(pipeFlowGrid.P(:,:,end)');
 title('Pressure');
-
+axis image
 
 
 

@@ -4,7 +4,8 @@ cutoff = 0.001;
 maxDiff = 1;
 B = obj.dx/obj.dy;
 P0 = obj.P(:,:,n-1);
-P1 = zeros(size(obj.P,1),size(obj.P,2));
+P1 = P0;
+P1(2:end-1,2:end-1) = zeros(size(obj.P,1)-2,size(obj.P,2)-2);
 
 counter = 0;
 while maxDiff > cutoff
@@ -23,11 +24,11 @@ while maxDiff > cutoff
         end
     end
 %     P1(:,end-1) = 0;
-    P1 = solvePressureBoundary(P1);
+    %P1 = solvePressureBoundary(P1);
     maxDiff = max(max(abs(P1 - P0)));
     P0 = P1;
 end
-
+P1 = solvePressureBoundary(P1);
 obj.P(:,:,n) = P1;
 
 end
