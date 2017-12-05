@@ -71,10 +71,10 @@ contourf(pipeFlowGrid.P(:,:,end)');
 title('Pressure');
 axis image
 
-figure(2);
+figure(5);
 surf(sqrt(vUnified'.^2+uUnified'.^2));
 shading interp;
 colormap(jet)
 view(2);
 axis image;
-title('v')
+title('Velocity')
