@@ -1,5 +1,6 @@
-function POut = solvePressureBoundary(PIn, obs)
+function POut = solvePressureBoundary(PIn)
 
+obs = obj.obs;
 POut = PIn;
 
 % Inlet
@@ -24,6 +25,6 @@ POut(obs.xVec(2:end-1),obs.yVec(2)) = POut(obs.xVec(2:end-1),obs.yVec(1));
 POut(obs.xVec(end-1),obs.yVec(2:end-1)) = POut(obs.xVec(end),obs.yVec(2:end-1));
 
 % Obstacle left
-POut(obs.xVec(2),obs.yVec(2:end-1)) = POut(obs.xVec(1),obs.yVec(2:end-1));
+POut(obs.xVec(,:) = POut(end-1,:);
 
 end

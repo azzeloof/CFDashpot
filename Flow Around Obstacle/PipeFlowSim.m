@@ -11,15 +11,21 @@ clc
 
 xDim = 0.04;
 yDim = 0.1;
+
+obsX = .01;
+obsY = .04;
+obsXDim = .02;
+obsYDim = .02;
+
 dx = 0.002;
 dy = 0.002;
 
-duration = 0.5;
-dt = 0.0002;
+duration = 0.001;
+dt = 0.001;
 
 inletVelocity = .01;
 
-obs = Obstacle(obsX, obsY, obsXDim, obsYdim, dx, dy);
+obs = Obstacle(obsX, obsY, obsXDim, obsYDim, dx, dy);
 pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt, obs);
 
 %% Set initial conditions

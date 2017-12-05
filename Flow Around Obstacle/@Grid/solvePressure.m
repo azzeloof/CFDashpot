@@ -44,7 +44,7 @@ while maxDiff > cutoff
         end
     end
     
-    P1 = solvePressureBoundary(P1);
+    P1 = solvePressureBoundary(P1, obs);
     maxDiff = max(max(abs(P1 - P0)));
     P0 = P1;
     
