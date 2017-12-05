@@ -27,7 +27,7 @@ for i = 2:size(obj.u,1) - 1
     end
 end
 
-%Solve for vF
+% Solve for vF
 for i = 2:size(obj.v,1) - 1
     for j = 2:size(obj.v,2) - 1
         if n == 2

@@ -8,7 +8,7 @@ uOut(2:end-1,1) = -uIn(2:end-1,2);
 vOut(2:end-1,1) = inletVelocity;
 
 % Outlet
-uOut(2:end-1,end) = -uIn(2:end-1,end-1);
+uOut(2:end-1,end) = uIn(2:end-1,end-1);
 vOut(2:end-1,end) = vIn(2:end-1,end-1);
 
 % Left wall (u = 0, v = 0);
