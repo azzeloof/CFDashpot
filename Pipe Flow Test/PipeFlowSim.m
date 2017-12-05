@@ -14,7 +14,7 @@ yDim = 0.1;
 dx = 0.002;
 dy = 0.002;
 
-duration = 0.01;
+duration = 1.0;
 dt = 0.0002;
 
 inletVelocity = .001;
@@ -34,6 +34,9 @@ pipeFlowGrid.setInitialConditions(u0, v0, P0);
 %% Solve at each time step
 
 for n = 2:length(pipeFlowGrid.t)
+    if mod(n,10) == 0
+        disp([num2str(round((n/length(pipeFlowGrid.t))*100)), '% complete']);
+    end
     pipeFlowGrid.solveIntermediateVelocity(n, mu, rho, inletVelocity);
     pipeFlowGrid.solvePressure(n);
     pipeFlowGrid.solveFinalVelocity(n, inletVelocity);
@@ -53,14 +56,14 @@ axis image;
 title('u');
 
 figure(2);
-surf(vUnified');
+contourf(vUnified');
 shading interp;
 view(2);
 axis image;
 title('v')
 
 figure(3);
-streamslice(uUnified',vUnified');
+quiver(uUnified',vUnified');
 axis image;
 
 figure(4);
