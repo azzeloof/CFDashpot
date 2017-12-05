@@ -19,8 +19,8 @@ dt = 0.0002;
 
 inletVelocity = .01;
 
-obs = Obstacle(obsX, obsY, obsXDim, obsYdim, dx, dy);
-pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt, obs);
+pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt);
+obs = Obstacle(x, y, obs
 
 %% Set initial conditions
 

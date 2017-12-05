@@ -19,6 +19,7 @@ classdef Grid < handle
         u, v; % x and y velocity components
         uF, vF; % x and y intermediate velocity grids
         P; % Pressure per density (p/rho)
+        obs;
     end
     
     
@@ -26,7 +27,7 @@ classdef Grid < handle
     methods
         
         % Constructor
-        function obj = Grid(xDimIn, dxIn, yDimIn, dyIn, durationIn, dtIn)
+        function obj = Grid(xDimIn, dxIn, yDimIn, dyIn, durationIn, dtIn, obs)
             % Define x nodes
             obj.xDim = xDimIn;
             obj.dx = dxIn;
@@ -41,6 +42,8 @@ classdef Grid < handle
             obj.duration = durationIn;
             obj.dt = dtIn;
             obj.t = 0:obj.dt:obj.duration;
+            
+            obj.obs = obs;
             
             % Create grids for each variable
             obj.u = zeros(length(obj.x), length(obj.y)+1, length(obj.t));

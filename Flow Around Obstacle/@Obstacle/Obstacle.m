@@ -6,10 +6,14 @@
 classdef Obstacle < handle
     %% Properties
     properties
-        x;
-        y;
+        x; %Left edge
+        y; %Bottom edge
         xDim;
         yDim;
+        dx;
+        dy;
+        xVec;
+        yVec;
     end
     
     
@@ -17,11 +21,15 @@ classdef Obstacle < handle
     methods
         
         % Constructor
-        function obj = Obstacle(x, y, xDim, yDim)
+        function obj = Obstacle(x, y, xDim, yDim, dx, dy)
             obj.x = x;
             obj.y = y;
             obj.xDim = xDim;
             obj.yDim = yDim;
+            obj.dx = dx;
+            obj.dy = dy;
+            obj.xVec = ((x/dx):(x+xDim)/dx);
+            obj.yVec = ((y/dy):(y+yDim)/dy);
         end
         
 
