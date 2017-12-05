@@ -65,7 +65,7 @@ classdef Grid < handle
         solveIntermediateVelocity(obj, n, mu, rho, inletVelocity);
         
         % Find pressure at n+1 time step
-        solvePressure(obj, n);
+        counter = solvePressure(obj, n);
         
         % Find final velocity using pressure
         solveFinalVelocity(obj, n, inletVelocity);

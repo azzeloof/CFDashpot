@@ -1,4 +1,4 @@
-function solvePressure(obj, n)
+function counter = solvePressure(obj, n, w)
 
 cutoff = 0.001;
 maxDiff = 1;
@@ -37,7 +37,7 @@ while maxDiff > cutoff
         
             end
             
-            P1(i,j) = coeff*a - coeff*obj.dx^2*b;
+            P1(i,j) = (1-w)*P0(i,j) + coeff*a - coeff*obj.dx^2*b;
             
             % Point Jacobi
 %             a = P0(i-1,j) + P0(i+1,j) + B^2 * (P0(i,j-1) + P0(i,j+1));
