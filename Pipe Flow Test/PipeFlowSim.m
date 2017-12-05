@@ -34,6 +34,7 @@ pipeFlowGrid.setInitialConditions(u0, v0, P0);
 %% Solve at each time step
 for n = 2:length(pipeFlowGrid.t)      
     if mod(n,25) == 0
+        clc;
         disp([num2str(round((n/length(pipeFlowGrid.t))*100)), '% complete']);
     end
     pipeFlowGrid.solveIntermediateVelocity(n, mu, rho, inletVelocity);
@@ -49,32 +50,35 @@ pipeFlowGrid.v(:,:,end);
 [uUnified, vUnified] = pipeFlowGrid.unifyVelocity(n);
 
 figure(1);
-contourf(uUnified');
+surf(pipeFlowGrid.u(:,:,end)');
 shading interp;
 view(2);
 axis image;
-title('u');
+title('X Velocity Magnitude (u)');
 
 figure(2);
-surf(vUnified');
+surf(pipeFlowGrid.v(:,:,end)');
 shading interp;
 view(2);
 axis image;
-title('v')
+title('Y Velocity Magnitude (v)')
 
 figure(3);
 quiver(uUnified',vUnified');
+title('Velocity Vectors');
 axis image;
 
 figure(4);
-contourf(pipeFlowGrid.P(:,:,end)');
+surf(pipeFlowGrid.P(:,:,end)');
+shading interp;
+view(2);
+axis image;
 title('Pressure');
-axis image
 
-figure(2);
+figure(5);
 surf(sqrt(vUnified'.^2+uUnified'.^2));
 shading interp;
 colormap(jet)
 view(2);
 axis image;
-title('v')
+title('Velocity Magnitude')
