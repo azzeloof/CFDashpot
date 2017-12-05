@@ -55,6 +55,6 @@ for i = 2:size(obj.v,1) - 1
 end
 
 % Apply boundary conditions
-[obj.uF, obj.vF] = solveVelocityBoundary(obj.uF, obj.vF, inletVelocity);
+[obj.uF, obj.vF] = solveVelocityBoundary(obj.uF, obj.vF, inletVelocity, obj.obsX1, obj.obsX2, obj.obsY1, obj.obsY2);
         
 end

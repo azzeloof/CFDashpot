@@ -42,10 +42,10 @@ classdef Grid < handle
             obj.y = 0:obj.dy:obj.yDim;
             
             % Define the obstacle
-            obj.obsX1 = obsX1/obj.dx;
-            obj.obsX2 = obsX2/obj.dx;
-            obj.obsY1 = obsY1/obj.dy;
-            obj.obsY2 = obsY2/obj.dy;
+            obj.obsX1 = obsX1;
+            obj.obsX2 = obsX2;
+            obj.obsY1 = obsY1;
+            obj.obsY2 = obsY2;
             
             % Define t nodes
             obj.duration = durationIn;
@@ -75,7 +75,7 @@ classdef Grid < handle
         solveIntermediateVelocity(obj, n, mu, rho, inletVelocity);
         
         % Find pressure at n+1 time step
-        solvePressure(obj, n);
+        counter = solvePressure(obj, n);
         
         % Find final velocity using pressure
         solveFinalVelocity(obj, n, inletVelocity);

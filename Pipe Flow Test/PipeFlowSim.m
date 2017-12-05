@@ -14,12 +14,17 @@ yDim = 0.1;
 dx = 0.002;
 dy = 0.002;
 
+obsX1 = .01;
+obsX2 = .03;
+obsY1 = .04;
+obsY2 = .06;
+
 duration = 1.0;
 dt = 0.0002;
 
 inletVelocity = .01;
 
-pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt);
+pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt, obsX1, obsX2, obsY1, obsY2);
 
 %% Set initial conditions
 
@@ -32,7 +37,7 @@ P0 = zeros(length(pipeFlowGrid.x)+1, length(pipeFlowGrid.y)+1);
 pipeFlowGrid.setInitialConditions(u0, v0, P0);
 
 %% Solve at each time step
-for n = 2:length(pipeFlowGrid.t)      
+for n = 2:3%:length(pipeFlowGrid.t)      
     if mod(n,25) == 0
         disp([num2str(round((n/length(pipeFlowGrid.t))*100)), '% complete']);
     end
