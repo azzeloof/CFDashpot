@@ -32,15 +32,15 @@ P0 = zeros(length(pipeFlowGrid.x)+1, length(pipeFlowGrid.y)+1);
 pipeFlowGrid.setInitialConditions(u0, v0, P0);
 
 %% Solve at each time step
-for n = 2:length(pipeFlowGrid.t)      
-    if mod(n,25) == 0
-        clc;
-        disp([num2str(round((n/length(pipeFlowGrid.t))*100)), '% complete']);
-    end
+
+textprogressbar('Running Simulation: ');
+for n = 2:length(pipeFlowGrid.t)
+    textprogressbar(n/length(pipeFlowGrid.t)*100); 
     pipeFlowGrid.solveIntermediateVelocity(n, mu, rho, inletVelocity);
     pipeFlowGrid.solvePressure(n);
     pipeFlowGrid.solveFinalVelocity(n, inletVelocity);
 end
+textprogressbar('Done!');
 
 
 %% Plot results
