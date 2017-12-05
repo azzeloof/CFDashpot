@@ -14,7 +14,7 @@ yDim = 0.1;
 dx = 0.002;
 dy = 0.002;
 
-duration = 1.0;
+duration = 0.5;
 dt = 0.0002;
 
 inletVelocity = .01;

@@ -39,7 +39,7 @@ elseif isnumeric(c)
     percentageOut = [num2str(c) '%%'];
     percentageOut = [percentageOut repmat(' ',1,strPercentageLength-length(percentageOut)-1)];
     nDots = floor(c/100*strDotsMaximum);
-    dotOut = ['[' repmat('.',1,nDots) repmat(' ',1,strDotsMaximum-nDots) ']'];
+    dotOut = ['||' repmat('=',1,nDots) repmat(' ',1,strDotsMaximum-nDots) '||'];
     strOut = [percentageOut dotOut];
     
     % Print it on the screen
