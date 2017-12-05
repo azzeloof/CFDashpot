@@ -18,13 +18,15 @@ duration = 0.5;
 dt = 0.0002;
 
 inletVelocity = .01;
+mu = .1;
+rho = 1000;
+
+w = 1;
 
 pipeFlowGrid = Grid(xDim, dx, yDim, dy, duration, dt);
 
 %% Set initial conditions
 
-mu = .1;
-rho = 1000;
 u0 = zeros(length(pipeFlowGrid.x), length(pipeFlowGrid.y)+1);
 v0 = zeros(length(pipeFlowGrid.x)+1, length(pipeFlowGrid.y));
 v0(2:end-1,1) = inletVelocity;
@@ -37,7 +39,7 @@ textprogressbar('Running Simulation: ');
 for n = 2:length(pipeFlowGrid.t)
     textprogressbar(n/length(pipeFlowGrid.t)*100); 
     pipeFlowGrid.solveIntermediateVelocity(n, mu, rho, inletVelocity);
-    pipeFlowGrid.solvePressure(n);
+    pipeFlowGrid.solvePressure(n, w);
     pipeFlowGrid.solveFinalVelocity(n, inletVelocity);
 end
 textprogressbar('Done!');
