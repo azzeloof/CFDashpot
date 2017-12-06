@@ -1,6 +1,6 @@
 function solvePressure(obj, n, w)
 
-cutoff = 0.002;
+cutoff = 0.0012;
 maxDiff = 1;
 B = obj.dx/obj.dy;
 P0 = obj.P(:,:,n-1);
@@ -14,7 +14,7 @@ while maxDiff > cutoff
     for i = 2:size(P0,1) - 1
         for j = 2:size(P0,2) - 1
             
-            if (obj.nodeOnBox(i,j,'u') == false)
+            if (obj.nodeOnBox(i,j,'P') == false)
             
                 % Gauss-Seidel w/ SOR
                 b = (1/obj.dt) * ((obj.uF(i,j) - obj.uF(i-1,j))/obj.dx + ...
@@ -50,7 +50,7 @@ while maxDiff > cutoff
             end
         end
     end
-    
+
     P1 = solvePressureBoundary(obj,P1);
     maxDiff = max(max(abs(P1 - P0)));
     P0 = P1;
