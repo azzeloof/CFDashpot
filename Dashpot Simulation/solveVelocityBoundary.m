@@ -1,4 +1,4 @@
-function [uOut,vOut] = solveVelocityBoundary(uIn, vIn, inletVelocity)
+function [uOut,vOut] = solveVelocityBoundary(obj, uIn, vIn, inletVelocity)
 
 uOut = uIn;
 vOut = vIn;
@@ -18,5 +18,21 @@ vOut(1,:) = -vOut(2,:);
 % Right wall (u = 0, v = 0);
 uOut(end,:) = 0;
 vOut(end,:) = -vOut(end-1,:);
+
+% Box left wall (u = 0, v = 0)
+uOut(obj.boxUBounds(1)-1,obj.boxUBounds(3):obj.boxUBounds(4)) = 0;
+vOut(obj.boxVBounds(1),obj.boxVBounds(3):obj.boxVBounds(4)) = -vOut(obj.boxVBounds(1)-1,obj.boxVBounds(3):obj.boxVBounds(4));
+
+% Box right wall (u = 0, v = 0)
+uOut(obj.boxUBounds(2)+1,obj.boxUBounds(3):obj.boxUBounds(4)) = 0;
+vOut(obj.boxVBounds(2),obj.boxVBounds(3):obj.boxVBounds(4)) = -vOut(obj.boxVBounds(2)+1,obj.boxVBounds(3):obj.boxVBounds(4));
+
+% Box bottom wall (u = 0, v = 0)
+uOut(obj.boxUBounds(1):obj.boxUBounds(2),obj.boxUBounds(3)) = -uOut(obj.boxUBounds(1):obj.boxUBounds(2),obj.boxUBounds(3)-1);
+vOut(obj.boxVBounds(1):obj.boxVBounds(2),obj.boxVBounds(3)-1) = 0;
+
+% Box top wall (u = 0, v = 0)
+uOut(obj.boxUBounds(1):obj.boxUBounds(2),obj.boxUBounds(4)) = -uOut(obj.boxUBounds(1):obj.boxUBounds(2),obj.boxUBounds(4)+1);
+vOut(obj.boxVBounds(1):obj.boxVBounds(2),obj.boxVBounds(4)+1) = 0;
 
 end

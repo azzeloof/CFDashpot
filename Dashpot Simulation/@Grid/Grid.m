@@ -84,6 +84,10 @@ classdef Grid < handle
         
         B = solveDiffusion(obj, i, j, n, mu, rho, direction);
         
+%         [uOut,vOut] = solveVelocityBoundary(obj, uIn, vIn, inletVelocity)
+        
+%         POut = solvePressureBoundary(obj, PIn)
+        
         createBox(obj,width, height, yLocation)
         
     end
