@@ -11,15 +11,18 @@ clc
 
 width = 0.04;
 height = 0.1;
-dx = 0.002;
-dy = 0.002;
+dx = 0.001;
+dy = 0.001;
 
-duration = 0.5;
-dt = 0.0002;
+duration = 0.1;
+dt = 0.0001;
 
-inletVelocity = .01;
+inletVelocity = 0.01;
 mu = .1;
 rho = 1000;
+
+% blockSpeed = 0.01; % m/s
+% timeStepsPerMove = (blockSpeed * dt / dy)^(-1);
 
 w = 0.1;
 
@@ -54,6 +57,9 @@ for n = 2:length(grid.t)
     grid.solveIntermediateVelocity(n, mu, rho, inletVelocity);
     grid.solvePressure(n, w);
     grid.solveFinalVelocity(n, inletVelocity);
+%     if mod(n, timeStepsPerMove) == 0
+%         grid.moveBox(-1);
+%     end
 end
 grid.u(grid.boxUBounds(1):grid.boxUBounds(2),...
     grid.boxUBounds(3):grid.boxUBounds(4),:) = NaN;
