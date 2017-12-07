@@ -21,12 +21,13 @@ inletVelocity = 0.01;
 mu = .1;
 rho = 1000;
 
-% blockSpeed = 0.01; % m/s
-% timeStepsPerMove = (blockSpeed * dt / dy)^(-1);
+blockVelocity = -0.01; % m/s
+timeStepsPerMove = (abs(blockVelocity) * dt / dy)^(-1)
 
 w = 0.1;
 
 grid = Grid(width, dx, height, dy, duration, dt);
+length(grid.t)
 
 %% Initialize box
 
@@ -54,12 +55,12 @@ grid.setInitialConditions(u0, v0, P0);
 textprogressbar('Running Simulation: ');
 for n = 2:length(grid.t)
     textprogressbar(n/length(grid.t)*100);
-    grid.solveIntermediateVelocity(n, mu, rho, inletVelocity);
+    grid.solveIntermediateVelocity(n, mu, rho, inletVelocity, blockVelocity);
     grid.solvePressure(n, w);
-    grid.solveFinalVelocity(n, inletVelocity);
-%     if mod(n, timeStepsPerMove) == 0
-%         grid.moveBox(-1);
-%     end
+    grid.solveFinalVelocity(n, inletVelocity, blockVelocity);
+    if mod(n, timeStepsPerMove) == 0
+        grid.moveBox(-1);
+    end
 end
 grid.u(grid.boxUBounds(1):grid.boxUBounds(2),...
     grid.boxUBounds(3):grid.boxUBounds(4),:) = NaN;
@@ -73,24 +74,26 @@ textprogressbar('Done!');
 
 %% Plot results
 
-[uUnified, vUnified] = grid.unifyVelocity(n);
+timeIndex = n;
+
+[uUnified, vUnified] = grid.unifyVelocity(timeIndex);
 
 figure(1);
-surf(grid.P(:,:,end)');
+surf(grid.P(:,:,timeIndex)');
 shading interp;
 view(2);
 axis image;
 title('Pressure');
 
 figure(2);
-surf(grid.u(:,:,end)');
+surf(grid.u(:,:,timeIndex)');
 shading interp;
 view(2);
 axis image;
 title('X Velocity Magnitude (u)');
 
 figure(3);
-surf(grid.v(:,:,end)');
+surf(grid.v(:,:,timeIndex)');
 shading interp;
 view(2);
 axis image;

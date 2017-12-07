@@ -1,4 +1,4 @@
-function solveFinalVelocity(obj, n, inletVelocity)
+function solveFinalVelocity(obj, n, inletVelocity, blockVelocity)
 
 % Solve for u
 for i = 2:size(obj.u,1)-1
@@ -19,6 +19,6 @@ for i = 2:size(obj.v,1)-1
 end
 
 % Apply boundary conditions
-[obj.u(:,:,n), obj.v(:,:,n)] = solveVelocityBoundary(obj,obj.u(:,:,n), obj.v(:,:,n), inletVelocity);
+[obj.u(:,:,n), obj.v(:,:,n)] = solveVelocityBoundary(obj,obj.u(:,:,n), obj.v(:,:,n), inletVelocity, blockVelocity);
 
 end

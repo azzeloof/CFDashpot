@@ -1,4 +1,4 @@
-function solveIntermediateVelocity(obj, n, mu, rho, inletVelocity)
+function solveIntermediateVelocity(obj, n, mu, rho, inletVelocity, blockVelocity)
 
 % Solve for uF
 for i = 2:size(obj.u,1) - 1
@@ -59,6 +59,6 @@ for i = 2:size(obj.v,1) - 1
 end
 
 % Apply boundary conditions
-[obj.uF, obj.vF] = solveVelocityBoundary(obj,obj.uF, obj.vF, inletVelocity);
+[obj.uF, obj.vF] = solveVelocityBoundary(obj,obj.uF, obj.vF, inletVelocity, blockVelocity);
         
 end
