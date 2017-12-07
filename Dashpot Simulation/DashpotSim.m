@@ -21,7 +21,7 @@ inletVelocity = .01;
 mu = .1;
 rho = 1000;
 
-w = 1;
+w = 0.1;
 
 grid = Grid(width, dx, height, dy, duration, dt);
 
@@ -36,24 +36,18 @@ grid.createBox(boxWidth, boxHeight, boxYLocation);
 
 % u velcity
 u0 = zeros(length(grid.x), length(grid.y)+1);
-% u0(grid.boxUBounds(1):grid.boxUBounds(2),...
-%     grid.boxUBounds(3):grid.boxUBounds(4)) = NaN;
 
 % v velocity
 v0 = zeros(length(grid.x)+1, length(grid.y));
-% v0(grid.boxVBounds(1):grid.boxVBounds(2),...
-%     grid.boxVBounds(3):grid.boxVBounds(4)) = NaN;
 v0(2:end-1,1) = inletVelocity;
 
 % pressure
 P0 = zeros(length(grid.x)+1, length(grid.y)+1);
-% P0(grid.boxPBounds(1):grid.boxPBounds(2),...
-%     grid.boxPBounds(3):grid.boxPBounds(4)) = NaN;
 
 grid.setInitialConditions(u0, v0, P0);
 
 %% Solve at each time step
-
+    
 textprogressbar('Running Simulation: ');
 for n = 2:length(grid.t)
     textprogressbar(n/length(grid.t)*100);
@@ -68,6 +62,7 @@ grid.v(grid.boxVBounds(1):grid.boxVBounds(2),...
 grid.P(grid.boxPBounds(1):grid.boxPBounds(2),...
     grid.boxPBounds(3):grid.boxPBounds(4),:) = NaN;
 textprogressbar('Done!');
+
 
 
 %% Plot results

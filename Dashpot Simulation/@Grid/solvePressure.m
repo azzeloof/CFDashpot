@@ -1,13 +1,14 @@
 function solvePressure(obj, n, w)
 
-cutoff = 0.0012;
-maxDiff = 1;
+cutoff = 0.0001;
+diffOld = 2;
+diffNew = 1;
 B = obj.dx/obj.dy;
 P0 = obj.P(:,:,n-1);
 P1 = P0;
 
 counter = 0;
-while maxDiff > cutoff
+while abs(diffOld - diffNew) > cutoff
     
     counter = counter + 1;
     
@@ -52,7 +53,8 @@ while maxDiff > cutoff
     end
 
     P1 = solvePressureBoundary(obj,P1);
-    maxDiff = max(max(abs(P1 - P0)));
+    diffOld = diffNew;
+    diffNew = max(max(abs(P1 - P0)));
     P0 = P1;
     
 end
