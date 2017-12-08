@@ -1,15 +1,15 @@
-function [uOut,vOut] = solveVelocityBoundary(obj, uIn, vIn, inletVelocity, blockVelocity)
+function [uOut,vOut] = solveVelocityBoundary(obj, uIn, vIn, blockVelocity)
 
 uOut = uIn;
 vOut = vIn;
 
 % Inlet
 uOut(2:end-1,1) = -uIn(2:end-1,2);
-vOut(2:end-1,1) = inletVelocity;
+vOut(2:end-1,1) = 0;
 
 % Outlet
-uOut(2:end-1,end) = uIn(2:end-1,end-1);
-vOut(2:end-1,end) = vIn(2:end-1,end-1);
+uOut(2:end-1,end) = -uIn(2:end-1,end-1);
+vOut(2:end-1,end) = 0;
 
 % Left wall (u = 0, v = 0);
 uOut(1,:) = 0;
