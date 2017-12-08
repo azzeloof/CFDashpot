@@ -58,17 +58,17 @@ textprogressbar('Running Simulation: ');
 for n = 2:length(grid.t)
     textprogressbar(n/length(grid.t)*100);
     grid.solveIntermediateVelocity(n, mu, rho, inletVelocity, blockVelocity);
-    if n == 2
-        acceptableNansUint = sum(sum(isnan(grid.uF)));
-        acceptableNansVint = sum(sum(isnan(grid.vF)));
+   if n == 2
+        acceptableNansU = sum(sum(isnan(grid.u(:,:,n))));
+        acceptableNansV = sum(sum(isnan(grid.v(:,:,n))));
     end
-     if sum(sum(isnan(grid.uF(:,:)))) > acceptableNansUint
-        disp('NaN found in uF');
+     if sum(sum(isnan(grid.u(:,:)))) > acceptableNansU
+        disp('NaN found in u');
         disp(n);
         break;
     end
-    if sum(sum(isnan(grid.vF(:,:)))) > acceptableNansVint
-        disp('NaN found in vF');
+    if sum(sum(isnan(grid.v(:,:)))) > acceptableNansV
+        disp('NaN found in v');
         disp(n);
         break;
     end
