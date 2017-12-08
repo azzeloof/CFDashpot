@@ -61,9 +61,4 @@ end
 
 obj.P(:,:,n) = P1;
 
-if (n == 1001)
-    disp('pressure')
-    obj.P
-end
-
 end

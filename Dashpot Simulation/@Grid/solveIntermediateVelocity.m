@@ -78,19 +78,8 @@ for i = 2:size(obj.v,1) - 1
     end
 end
 
-if n == 1001
-    disp('uF and vF before boundary')
-    obj.uF(:,:)
-    obj.vF(:,:)
-end
 
 % Apply boundary conditions
 [obj.uF, obj.vF] = solveVelocityBoundary(obj,obj.uF, obj.vF, inletVelocity, blockVelocity);
-
-if n == 1001
-    disp('uF and vF after boundary')
-    obj.uF(:,:)
-    obj.vF
-end
         
 end

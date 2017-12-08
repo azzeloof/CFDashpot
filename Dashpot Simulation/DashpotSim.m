@@ -19,11 +19,11 @@ dy = 0.001;
 duration = 0.1;
 dt = 0.0001;
 
-inletVelocity = 0.01;
+inletVelocity = 0.0;
 mu = .1;
 rho = 1000;
 
-blockVelocity = -0.01; % m/s
+blockVelocity = -0.1; % m/s
 timeStepsPerMove = (abs(blockVelocity) * dt / dy)^(-1)
 
 w = 0.1;
