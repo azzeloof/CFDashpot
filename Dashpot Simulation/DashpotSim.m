@@ -123,12 +123,15 @@ minVel = min(min(min(velMag)));
 
 if animate
     textprogressbar('Generating Animation: ');
-    frames = struct('cdata', cell(1,length(grid.t)), 'colormap', cell(1,length(grid.t)));
+    frameSkip = 5;
+    animationLength = round(length(grid.t)/frameSkip);
+    frames = struct('cdata', cell(1,animationLength), 'colormap', cell(1,animationLength));
     f = figure('visible', 'off');
     hold on;
-    for n = 1:5:length(grid.t)
-        textprogressbar(n/length(grid.t)*100);
-        surf(sqrt(vUnified(:,:,n)'.^2+uUnified(:,:,n)'.^2));
+    for n = 1:animationLength
+        ind = n*frameSkip;
+        textprogressbar(n/animationLength*100);
+        surf(sqrt(vUnified(:,:,ind)'.^2+uUnified(:,:,ind)'.^2));
         shading interp;
         colormap(jet)
         view(2);
@@ -180,7 +183,7 @@ title('Velocity Vectors');
 axis image;
 
 figure(5);
-surf(velMag(:,:,50)');
+surf(velMag(:,:,n)');
 shading interp;
 colormap(jet)
 view(2);
@@ -189,6 +192,6 @@ colorbar;
 title('Velocity Magnitude')
 
 if animate
-    figure(6);
-    movie(frames,1,20);
+    %figure(6);
+    movie(frames,2,20);
 end
