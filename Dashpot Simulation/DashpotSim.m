@@ -8,13 +8,14 @@ close all
 clc
 
 animate = true;
+saveAnimation = true;
 
 %% Initialize grid
 
 width = 0.04;
 height = 0.1;
-dx = 0.001;
-dy = 0.001;
+dx = 0.0005;
+dy = 0.0005;
 
 duration = 0.1;
 dt = 0.0001;
@@ -126,7 +127,7 @@ if animate
     frameSkip = 5;
     animationLength = round(length(grid.t)/frameSkip);
     frames = struct('cdata', cell(1,animationLength), 'colormap', cell(1,animationLength));
-    f = figure('visible', 'off');
+    f = figure('visible', 'off','Position',[0 0 273 685]);
     hold on;
     for n = 1:animationLength
         ind = n*frameSkip;
@@ -139,9 +140,9 @@ if animate
         colorbar;
         caxis([minVel maxVel]);
         title('Velocity Magnitude')
-        pause(.0001)
         drawnow;
-        frames(n) = getframe(gca);
+        pause(.01);
+        frames(n) = getframe(gcf);
         clf;
     end
     hold off;
@@ -194,4 +195,15 @@ title('Velocity Magnitude')
 if animate
     %figure(6);
     movie(frames,2,20);
+end
+
+%% Save Video
+if animate && saveAnimation
+    vid = VideoWriter('CFDashpot.avi');
+    open(vid);
+    for k = 1:length(frames)
+        frame = frames(k);
+        writeVideo(vid,frame);
+    end
+    close(vid);
 end
