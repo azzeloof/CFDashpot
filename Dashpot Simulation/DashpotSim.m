@@ -19,7 +19,7 @@ height = 0.1;
 dx = 0.0002;
 dy = 0.0002;
 
-duration = 0.1;
+duration = 0.001;
 dt = 0.00002;
 
 nu = 0.00002;
@@ -60,6 +60,7 @@ for n = 2:length(grid.t)
     grid.solveIntermediateVelocity(n, nu, blockVelocity);
     grid.solvePressure(n, w);
     grid.solveFinalVelocity(n, blockVelocity);
+    grid.findBoxPressure(n);
     if mod(n, timeStepsPerMove) == 0
         grid.moveBox(-1);
         grid.P(:,:,n) = solvePressureBoundary(grid, grid.P(:,:,n));
@@ -123,7 +124,7 @@ save(saveFilename,'pressureOutput','uOutput','vOutput');
 
 clf;
 close all;
-timeIndex = find(grid.t == 0.1);
+timeIndex = n;
 
 figure(1);
 surf(grid.P(:,:,timeIndex)');

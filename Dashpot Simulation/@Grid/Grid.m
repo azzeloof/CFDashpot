@@ -22,6 +22,7 @@ classdef Grid < handle
         boxPBounds; % [left, right, bottom, top] Internal pressure nodes
         boxUBounds; % [left, right, bottom, top] Internal u velocity nodes
         boxVBounds; % [left, right, bottom, top] Internal v velocity nodes
+        boxPressure;
     end
     
     
@@ -63,6 +64,9 @@ classdef Grid < handle
             obj.boxPBounds = [-1 -1 -1 -1];
             obj.boxUBounds = [-1 -1 -1 -1];
             obj.boxVBounds = [-1 -1 -1 -1];
+            
+            % Average pressure along the bottom and top of the box
+            obj.boxPressure = zeros(length(obj.t),2);
         end
         
         
@@ -77,6 +81,8 @@ classdef Grid < handle
         
         % Find final velocity using pressure
         solveFinalVelocity(obj, n, blockVelocity);
+        
+        findBoxPressure(obj, n);
         
         [uUnified, vUnified] = unifyVelocity(obj,n);
         
