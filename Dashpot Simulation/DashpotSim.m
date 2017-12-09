@@ -7,39 +7,39 @@ clear all
 close all
 clc
 
-animate = true;
-saveAnimation = true;
+animate = false;
+saveAnimation = false;
 
 %% Initialize grid
 
 width = 0.04;
 height = 0.1;
-dx = 0.0001;
-dy = 0.0001;
+dx = 0.0002;
+dy = 0.0002;
 
 duration = 0.01;
-dt = 0.00001;
+dt = 0.00002;
 
 nu = 0.00002;
 
-blockVelocity = -0.05; % m/s
-timeStepsPerMove = round((abs(blockVelocity) * dt / dy)^(-1))
+blockVelocity = -0.06; % m/s
+timeStepsPerMove = round((abs(blockVelocity) * dt / dy)^(-1));
 
 w = 1;
 
 grid = Grid(width, dx, height, dy, duration, dt);
-length(grid.t)
+length(grid.t);
 
 %% Initialize box
 
-boxWidth = 0.02;
-boxHeight = 0.008;
+boxWidth = 0.03;
+boxHeight = 0.006;
 boxYLocation = 0.05;
 grid.createBox(boxWidth, boxHeight, boxYLocation);
 
 %% Set initial conditions
 
-% u velcity
+% u velocity
 u0 = zeros(length(grid.x), length(grid.y)+1);
 
 % v velocity
@@ -145,9 +145,7 @@ end
 
 clf;
 close all;
-timeIndex = 500;
-
-%[uUnified, vUnified] = grid.unifyVelocity(timeIndex);
+timeIndex = n;
 
 figure(1);
 surf(grid.P(:,:,timeIndex)');
