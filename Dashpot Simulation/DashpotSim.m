@@ -7,10 +7,7 @@ clear all
 close all
 clc
 
-saveFilename = 'trial_2.mat';
-
-% animate = false;
-% saveAnimation = false;
+saveFilename = 'trial_1.mat';
 
 %% Initialize grid
 
@@ -89,36 +86,8 @@ timeStepSkip = 5;
 pressureOutput = grid.P(:,:,1:timeStepSkip:end);
 uOutput = uUnified(:,:,1:timeStepSkip:end);
 vOutput = vUnified(:,:,1:timeStepSkip:end);
-save(saveFilename,'pressureOutput','uOutput','vOutput');
-
-%% Make an Animation
-
-% if animate
-%     textprogressbar('Generating Animation: ');
-%     frameSkip = 5;
-%     animationLength = round(length(grid.t)/frameSkip);
-%     frames = struct('cdata', cell(1,animationLength), 'colormap', cell(1,animationLength));
-%     f = figure('visible', 'off','Position',[0 0 273 685]);
-%     hold on;
-%     for n = 1:animationLength
-%         ind = n*frameSkip;
-%         textprogressbar(n/animationLength*100);
-%         surf(sqrt(vUnified(:,:,ind)'.^2+uUnified(:,:,ind)'.^2));
-%         shading interp;
-%         colormap(jet)
-%         view(2);
-%         axis image;
-%         colorbar;
-%         caxis([minVel maxVel]);
-%         title('Velocity Magnitude')
-%         drawnow;
-%         pause(.01);
-%         frames(n) = getframe(gcf);
-%         clf;
-%     end
-%     hold off;
-%     textprogressbar('Done!');
-% end
+boxPressureOutput = grid.boxPressure;
+save(saveFilename,'pressureOutput','uOutput','vOutput','boxPressureOutput');
 
 %% Plot results
 
@@ -160,19 +129,3 @@ view(2);
 axis image;
 colorbar;
 title('Velocity Magnitude')
-
-% if animate
-%     figure(6);
-%     movie(frames,2,20);
-% end
-
-%% Save Video
-% if animate && saveAnimation
-%     vid = VideoWriter('CFDashpot.avi');
-%     open(vid);
-%     for k = 1:length(frames)
-%         frame = frames(k);
-%         writeVideo(vid,frame);
-%     end
-%     close(vid);
-% end
