@@ -1,6 +1,6 @@
 function solvePressure(obj, n, w)
 
-cutoff = 0.0001;
+cutoff = 0.001;
 diffOld = 2;
 diffNew = 1;
 B = obj.dx/obj.dy;

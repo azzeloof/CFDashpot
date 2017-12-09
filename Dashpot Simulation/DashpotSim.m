@@ -14,19 +14,18 @@ saveAnimation = true;
 
 width = 0.04;
 height = 0.1;
-dx = 0.0005;
-dy = 0.0005;
+dx = 0.0001;
+dy = 0.0001;
 
-duration = 0.1;
-dt = 0.0001;
+duration = 0.01;
+dt = 0.00001;
 
-mu = .1;
-rho = 1000;
+nu = 0.00002;
 
-blockVelocity = -0.1; % m/s
-timeStepsPerMove = (abs(blockVelocity) * dt / dy)^(-1);
+blockVelocity = -0.05; % m/s
+timeStepsPerMove = round((abs(blockVelocity) * dt / dy)^(-1))
 
-w = 0.1;
+w = 1;
 
 grid = Grid(width, dx, height, dy, duration, dt);
 length(grid.t)
@@ -45,7 +44,6 @@ u0 = zeros(length(grid.x), length(grid.y)+1);
 
 % v velocity
 v0 = zeros(length(grid.x)+1, length(grid.y));
-%v0(2:end-1,1) = inletVelocity;
 
 % pressure
 P0 = zeros(length(grid.x)+1, length(grid.y)+1);
@@ -57,54 +55,48 @@ grid.setInitialConditions(u0, v0, P0);
 textprogressbar('Running Simulation: ');
 for n = 2:length(grid.t)
     textprogressbar(n/length(grid.t)*100);
-    grid.solveIntermediateVelocity(n, mu, rho, blockVelocity);
-    if n == 2
-        acceptableNansUint = sum(sum(isnan(grid.uF)));
-        acceptableNansVint = sum(sum(isnan(grid.vF)));
-    end
-     if sum(sum(isnan(grid.uF(:,:)))) > acceptableNansUint
-        disp('NaN found in uF');
-        disp(n);
-        break;
-    end
-    if sum(sum(isnan(grid.vF(:,:)))) > acceptableNansVint
-        disp('NaN found in vF');
-        disp(n);
-        break;
-    end
+    grid.solveIntermediateVelocity(n, nu, blockVelocity);
+%     if n == 2
+%         acceptableNansUint = sum(sum(isnan(grid.uF)));
+%         acceptableNansVint = sum(sum(isnan(grid.vF)));
+%     end
+%      if sum(sum(isnan(grid.uF(:,:)))) > acceptableNansUint
+%         disp('NaN found in uF');
+%         disp(n);
+%         break;
+%     end
+%     if sum(sum(isnan(grid.vF(:,:)))) > acceptableNansVint
+%         disp('NaN found in vF');
+%         disp(n);
+%         break;
+%     end
     grid.solvePressure(n, w);
     grid.solveFinalVelocity(n, blockVelocity);
-    if n == 2
-        acceptableNansU = sum(sum(isnan(grid.u(:,:,n))));
-        acceptableNansV = sum(sum(isnan(grid.v(:,:,n))));
-    end
+%     if n == 2
+%         acceptableNansU = sum(sum(isnan(grid.u(:,:,n))));
+%         acceptableNansV = sum(sum(isnan(grid.v(:,:,n))));
+%     end
     if mod(n, timeStepsPerMove) == 0
         grid.moveBox(-1);
         grid.P(:,:,n) = solvePressureBoundary(grid, grid.P(:,:,n));
         [grid.u(:,:,n), grid.v(:,:,n)] = solveVelocityBoundary(grid, grid.u(:,:,n), grid.v(:,:,n), blockVelocity);
     end
-    if sum(sum(isnan(grid.P(:,:,n)))) > 0
-        disp('NaN found in P');
-        disp(n);
-        break;
-    end
-    if sum(sum(isnan(grid.u(:,:,n)))) > acceptableNansU
-        disp('NaN found in u');
-        disp(n);
-        break;
-    end
-    if sum(sum(isnan(grid.v(:,:,n)))) > acceptableNansV
-        disp('NaN found in v');
-        disp(n);
-        break;
-    end
+%     if sum(sum(isnan(grid.P(:,:,n)))) > 0
+%         disp('NaN found in P');
+%         disp(n);
+%         break;
+%     end
+%     if sum(sum(isnan(grid.u(:,:,n)))) > acceptableNansU
+%         disp('NaN found in u');
+%         disp(n);
+%         break;
+%     end
+%     if sum(sum(isnan(grid.v(:,:,n)))) > acceptableNansV
+%         disp('NaN found in v');
+%         disp(n);
+%         break;
+%     end
 end
-% grid.u(grid.boxUBounds(1):grid.boxUBounds(2),...
-%     grid.boxUBounds(3):grid.boxUBounds(4),:) = NaN;
-% grid.v(grid.boxVBounds(1):grid.boxVBounds(2),...
-%     grid.boxVBounds(3):grid.boxVBounds(4),:) = NaN;
-% grid.P(grid.boxPBounds(1):grid.boxPBounds(2),...
-%     grid.boxPBounds(3):grid.boxPBounds(4),:) = NaN;
 textprogressbar('Done!');
 
 %% Unify Velocity
@@ -153,7 +145,7 @@ end
 
 clf;
 close all;
-timeIndex = n;
+timeIndex = 500;
 
 %[uUnified, vUnified] = grid.unifyVelocity(timeIndex);
 
@@ -179,12 +171,12 @@ axis image;
 title('Y Velocity Magnitude (v)')
 
 figure(4);
-streamslice(uUnified(:,:,n)',vUnified(:,:,n)');
+streamslice(uUnified(:,:,timeIndex)',vUnified(:,:,timeIndex)');
 title('Velocity Vectors');
 axis image;
 
 figure(5);
-surf(velMag(:,:,n)');
+surf(velMag(:,:,timeIndex)');
 shading interp;
 colormap(jet)
 view(2);
@@ -193,7 +185,7 @@ colorbar;
 title('Velocity Magnitude')
 
 if animate
-    %figure(6);
+    figure(6);
     movie(frames,2,20);
 end
 

@@ -70,7 +70,7 @@ classdef Grid < handle
         setInitialConditions(obj, u0, v0, P0);
         
         % Find intermediate velocity ignoring pressure
-        solveIntermediateVelocity(obj, n, mu, rho, blockVelocity);
+        solveIntermediateVelocity(obj, n, nu, blockVelocity);
         
         % Find pressure at n+1 time step
         counter = solvePressure(obj, n, w);
@@ -82,7 +82,7 @@ classdef Grid < handle
         
         A = solveAdvection(obj, i, j, n, direction);
         
-        B = solveDiffusion(obj, i, j, n, mu, rho, direction);
+        B = solveDiffusion(obj, i, j, n, nu, direction);
         
 %         [uOut,vOut] = solveVelocityBoundary(obj, uIn, vIn, inletVelocity)
         
