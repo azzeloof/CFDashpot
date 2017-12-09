@@ -17,18 +17,17 @@ height = 0.1;
 dx = 0.0002;
 dy = 0.0002;
 
-duration = 0.01;
+duration = 0.1;
 dt = 0.00002;
 
 nu = 0.00002;
 
-blockVelocity = -0.06; % m/s
+blockVelocity = -0.02; % m/s
 timeStepsPerMove = round((abs(blockVelocity) * dt / dy)^(-1));
 
 w = 1;
 
 grid = Grid(width, dx, height, dy, duration, dt);
-length(grid.t);
 
 %% Initialize box
 
