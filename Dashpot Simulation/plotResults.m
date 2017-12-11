@@ -23,15 +23,15 @@ hold on;
 fplot(force20Fit,[0 100],'--','Color',color20)
 fplot(force24Fit,[0 100],'--','Color',color24)
 fplot(force30Fit,[0 100],'--','Color',color30)
-plot(velocity, force30,'o','MarkerSize',12,'MarkerEdgeColor',color30,'MarkerFaceColor',color30)
-plot(velocity, force24,'o','MarkerSize',12,'MarkerEdgeColor',color24,'MarkerFaceColor',color24)
 plot(velocity, force20,'o','MarkerSize',12,'MarkerEdgeColor',color20,'MarkerFaceColor',color20)
+plot(velocity, force24,'o','MarkerSize',12,'MarkerEdgeColor',color24,'MarkerFaceColor',color24)
+plot(velocity, force30,'o','MarkerSize',12,'MarkerEdgeColor',color30,'MarkerFaceColor',color30)
 axis([0 80 0 2.5e-3])
 title('Effect of Piston Velocity on Damping Force','Color',textColor)
 xlabel('Piston Velocity [mm/s]','Color',textColor)
 ylabel('Damping Force [N-m^2/kg]','Color',textColor)
 legend('30mm Piston','24mm Piston','20mm Piston','location','NW')
-set(gca,'FontSize',18,'XColor',textColor,'YColor',textColor)
+set(gca,'FontName','Lato','FontSize',18,'XColor',textColor,'YColor',textColor)
 
 %% Plot force vs. piston width
 
@@ -66,7 +66,7 @@ title('Effect of Piston Width on Damping Force','Color',textColor)
 xlabel('Piston Width [mm]','Color',textColor)
 ylabel('Damping Force [N-m^2/kg]','Color',textColor)
 legend('20mm/s Piston Velocity','40mm/s Piston Velocity','60mm/s Piston Velocity','location','NW');
-set(gca,'FontSize',18,'XColor',textColor,'YColor',textColor)
+set(gca,'FontName','Lato','FontSize',18,'XColor',textColor,'YColor',textColor)
 
 
 
