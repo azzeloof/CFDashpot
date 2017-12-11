@@ -1,9 +1,13 @@
+%% Clean up
+
+clear all;
+close all;
+clc;
 
 %% Load file
 
-filename = 'trial_1';
+filename = 'trial_9';
 load([filename,'.mat']);
-
 
 %% Animate and save
 
