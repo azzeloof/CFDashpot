@@ -7,7 +7,7 @@ clear all
 close all
 clc
 
-saveFilename = 'trial_4.mat';
+saveFilename = 'trial_12.mat';
 
 %% Initialize grid
 
@@ -20,19 +20,19 @@ duration = 0.1;
 dt = 0.00002;
 
 nu = 0.00002;
-
-blockVelocity = -0.02; % m/s
-timeStepsPerMove = round((abs(blockVelocity) * dt / dy)^(-1));
-
 w = 1;
 
 grid = Grid(width, dx, height, dy, duration, dt);
 
 %% Initialize box
 
-boxWidth = 0.02;
+boxWidth = 0.026;
 boxHeight = 0.006;
 boxYLocation = 0.05;
+
+blockVelocity = -0.04; % m/s
+timeStepsPerMove = round((abs(blockVelocity) * dt / dy)^(-1));
+
 grid.createBox(boxWidth, boxHeight, boxYLocation);
 
 %% Set initial conditions

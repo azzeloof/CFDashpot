@@ -6,27 +6,34 @@ clc;
 
 %% Load file
 
-filename = 'trial_9';
+filename = 'trial_3';
 load([filename,'.mat']);
+
+%% Set scale
+
+% maxVel = 0.4;
+% minVel = -0.4;
+velMag = sqrt(uOutput.^2+vOutput.^2);
+% maxVel = 0.3334;
+% minVel = 0;
+maxVel = max(max(max(velMag)))
+minVel = min(min(min(velMag)));
 
 %% Animate and save
 
 figure(1);
-velMag = sqrt(uOutput.^2+vOutput.^2);
-maxVel = max(max(max(velMag)));
-minVel = min(min(min(velMag)));
 
 disp('Rendering animation...');
-for n = 1:10:size(velMag,3)
+for n = 1:10:size(pressureOutput,3)
     
-    surf(velMag(:,:,n)');
+    surf(pressureOutput(:,:,n)');
     shading interp;
     colormap(jet)
     view(2);
     axis image;
     caxis([minVel maxVel]);
     colorbar;
-    title('Velocity Magnitude');
+    title('Pressure');
  
     % gif utilities
     set(gcf,'color','w'); % set figure background to white
@@ -34,7 +41,7 @@ for n = 1:10:size(velMag,3)
     frame = getframe(1);
     im = frame2im(frame);
     [imind,cm] = rgb2ind(im,256);
-    outfile = [filename,'.gif'];
+    outfile = [filename,'_pressure.gif'];
  
     % On the first loop, create the file. In subsequent loops, append.
     if n==1

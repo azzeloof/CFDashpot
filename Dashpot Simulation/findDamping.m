@@ -6,7 +6,7 @@ clc;
 
 %% Load file
 
-filename = 'trial_9';
+filename = 'trial_12';
 load([filename,'.mat']);
 
 %% System params
